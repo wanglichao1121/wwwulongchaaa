@@ -3,28 +3,30 @@ import { computed, Ref, ref, StyleValue } from "vue";
 const animate_progress = ref(0);
 const eaze_in_out = ref(0);
 const foldingProgress = ref(0);
+const viewHeight = ref(document.body.clientHeight)
+const viewWidth = ref(document.body.clientWidth)
 const eazing_function=(x:number)=>(x<0.5)?2*x*x:(-1+4*x-2*x*x);
 const foldingFrameCount=300
 let folding = true;
 let ticking = false;
 const titleStyle:Ref<StyleValue>=computed(()=>({
   position: "fixed",
-  top: ((document.body.clientHeight/2-100)*(1-eaze_in_out.value)+100)+"px",
-  left: (document.body.clientWidth/2)+"px",
+  top: ((viewHeight.value/2-100)*(1-eaze_in_out.value)+100)+"px",
+  left: (viewWidth.value/2)+"px",
   transform: "translate(-50%,-50%)",
   fontSize: (100-eaze_in_out.value*20)+"px"
 }))
 const contentStyle:Ref<StyleValue>=computed(()=>({
   position: "fixed",
-  top: document.body.clientHeight/2+'px',
-  left: document.body.clientWidth/2+'px',
+  top: viewHeight.value/2+'px',
+  left: viewWidth.value/2+'px',
   transform: "translate(-50%,-50%)",
   opacity: eazing_function(foldingProgress.value/foldingFrameCount)*100+'%'
 }))
 const bottomStyle:Ref<StyleValue>=computed(()=>({
   position: "fixed",
-  bottom: ((document.body.clientHeight/2-100)*(1-eaze_in_out.value)+100)+"px",
-  left: (document.body.clientWidth/2)+"px",
+  bottom: ((viewHeight.value/2-100)*(1-eaze_in_out.value)+100)+"px",
+  left: (viewWidth.value/2)+"px",
   transform: "translate(-50%,50%)",
   fontSize: (100-eaze_in_out.value*20)+"px"
 }))
@@ -34,7 +36,6 @@ const fadeOut:Ref<StyleValue>=computed(()=>({
 const fadeIn:Ref<StyleValue>=computed(()=>({
   opacity: eaze_in_out.value*100+'%'
 }))
-
 const foldingAnimation=()=>{
   if(foldingProgress.value>0 && folding){
     foldingProgress.value--;
@@ -44,22 +45,28 @@ const foldingAnimation=()=>{
     window.requestAnimationFrame(foldingAnimation);
   }
 }
-
 const handleScroll=()=>{
-  animate_progress.value = window.scrollY/document.body.clientHeight;
+  animate_progress.value = window.scrollY/viewHeight.value;
   folding=animate_progress.value<=0.8;
   foldingAnimation();
   eaze_in_out.value=eazing_function(animate_progress.value)
   ticking=false
 }
-
-
-window.addEventListener('scroll', function(e) {
+window.addEventListener('scroll',()=>{
   if (!ticking) {
     window.requestAnimationFrame(handleScroll);
     ticking = true;
   }
 });
+window.addEventListener('resize',()=>{
+  viewHeight.value=document.body.clientHeight
+  viewWidth.value=document.body.clientWidth
+})
+const contentCanvas=ref<HTMLCanvasElement>()
+const drawCanvas=()=>{
+
+}
+
 </script>
 
 <template>
@@ -70,9 +77,7 @@ window.addEventListener('scroll', function(e) {
       </div>
     </div>
     <div :style="contentStyle">
-      <div>
-        wow
-      </div>
+      <canvas ref="contentCanvas"/>
     </div>
     <div :style="{...bottomStyle,...fadeIn}">
       <div class="same-width">
