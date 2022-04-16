@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { computed, Ref, ref, StyleValue } from "vue";
-const animate_progress = ref(0);
-const eaze_in_out = ref(0);
-const foldingProgress = ref(0);
+const foldingFrameCount=300
+
 const viewHeight = ref(document.body.clientHeight)
 const viewWidth = ref(document.body.clientWidth)
-const eazing_function=(x:number)=>(x<0.5)?2*x*x:(-1+4*x-2*x*x);
-const foldingFrameCount=300
+window.addEventListener('resize',()=>{
+  viewHeight.value=document.body.clientHeight
+  viewWidth.value=document.body.clientWidth
+})
+
+const animate_progress = ref(0);
+const foldingProgress = ref(0);
 let folding = true;
-let ticking = false;
-const titleStyle:Ref<StyleValue>=computed(()=>({
+const eazing_function=(x:number)=>(x<0.5)?2*x*x:(-1+4*x-2*x*x);
+const eaze_in_out=computed(()=>eazing_function(animate_progress.value))
+const moveUp:Ref<StyleValue>=computed(()=>({
   position: "fixed",
   top: ((viewHeight.value/2-100)*(1-eaze_in_out.value)+100)+"px",
   left: (viewWidth.value/2)+"px",
@@ -23,7 +28,7 @@ const contentStyle:Ref<StyleValue>=computed(()=>({
   transform: "translate(-50%,-50%)",
   opacity: eazing_function(foldingProgress.value/foldingFrameCount)*100+'%'
 }))
-const bottomStyle:Ref<StyleValue>=computed(()=>({
+const moveDown:Ref<StyleValue>=computed(()=>({
   position: "fixed",
   bottom: ((viewHeight.value/2-100)*(1-eaze_in_out.value)+100)+"px",
   left: (viewWidth.value/2)+"px",
@@ -45,33 +50,34 @@ const foldingAnimation=()=>{
     window.requestAnimationFrame(foldingAnimation);
   }
 }
+
+let tickingScroll = false;
 const handleScroll=()=>{
   animate_progress.value = window.scrollY/viewHeight.value;
   folding=animate_progress.value<=0.8;
   foldingAnimation();
-  eaze_in_out.value=eazing_function(animate_progress.value)
-  ticking=false
+  tickingScroll=false
 }
 window.addEventListener('scroll',()=>{
-  if (!ticking) {
+  if (!tickingScroll) {
     window.requestAnimationFrame(handleScroll);
-    ticking = true;
+    tickingScroll = true;
   }
 });
-window.addEventListener('resize',()=>{
-  viewHeight.value=document.body.clientHeight
-  viewWidth.value=document.body.clientWidth
-})
+
+
 const contentCanvas=ref<HTMLCanvasElement>()
 const drawCanvas=()=>{
+  if(contentCanvas.value){
 
+  }
 }
 
 </script>
 
 <template>
   <div class="scroll-view">
-    <div :style="titleStyle">
+    <div :style="moveUp">
       <div>
         <span :style="fadeOut">ww</span>wulongcha<span :style="fadeOut">aa</span>
       </div>
@@ -79,7 +85,7 @@ const drawCanvas=()=>{
     <div :style="contentStyle">
       <canvas ref="contentCanvas"/>
     </div>
-    <div :style="{...bottomStyle,...fadeIn}">
+    <div :style="{...moveDown,...fadeIn}">
       <div class="same-width">
         a&ensp;&ensp;a
       </div>
