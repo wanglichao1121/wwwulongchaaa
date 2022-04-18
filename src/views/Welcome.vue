@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import avatarImg from "/src/assets/avatar.jpg"
 import { computed, ComputedRef, ref, StyleValue } from "vue";
+import { useRouter } from "vue-router";
 const eazing_function=(x:number)=>(x<0.5)?2*x*x:(-1+4*x-2*x*x);
 
 const viewHeight = ref(document.body.clientHeight)
@@ -10,8 +11,9 @@ window.addEventListener('resize',()=>{
   viewWidth.value=document.body.clientWidth
 })
 
+const router= useRouter()
 const handleClick=()=>{
-  alert('wow')
+  router.push('/post')
 }
 
 const foldingBorderIncrease=200
@@ -147,30 +149,17 @@ window.addEventListener('scroll',()=>{
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style lang="scss" scoped>
 .same-width{
   font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
   line-height: 60px;
 }
-html,body,#app {
+
+.scroll-view {
   background-color: rgb(64,70,75);
   color: white;
-  height: 100%;
-  margin: 0;
-  scrollbar-width:none;
-  ::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
-  }
-}
-.scroll-view {
   height: 200%;
+  word-break: initial;
 }
 .col-flex {
   display: flex;

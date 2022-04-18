@@ -1,1 +1,25 @@
-indexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindexindex
+# 这是index，目录或是首页？
+
+## 写在诞生日
+
+这个博客的诞生日大概算是2022.4.18，虽然前面欢迎页之类的已经写了有两天了。但是果然有`post`页面才有了博客的感觉。正是大三下对前途有些迷茫的时候，面试了几个大厂的前端被拒的稀里哗啦的，感觉自己就是半瓶水晃荡晃荡，于是就想到自己做一个博客，无论如何也是能看看自己到底有多少本事。塞上各种奇怪地方搜罗来的小灵感，手写JS动画写了一个[欢迎页](/)，不妨去康康！
+
+先测试一下图片引用是否正常：
+
+![](../assets/avatar.jpg)
+
+fine，代码高亮：
+
+```c
+#include "stdio.h"
+int main(){
+    int a,b;
+    scanf("%d%d",&a,&b);
+    printf("%d\n",a+b);
+    return 0;
+}
+```
+
+fine，接下来试试写vue
+
+
