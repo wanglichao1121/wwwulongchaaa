@@ -160,6 +160,7 @@ window.addEventListener('scroll',()=>{
   color: white;
   height: 200%;
   word-break: initial;
+  text-align: center;
 }
 .col-flex {
   display: flex;
