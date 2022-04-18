@@ -10,6 +10,10 @@ window.addEventListener('resize',()=>{
   viewWidth.value=document.body.clientWidth
 })
 
+const handleClick=()=>{
+  alert('wow')
+}
+
 const foldingBorderIncrease=200
 const foldingHeightIncrease=100
 const foldingWidthIncrease=100
@@ -30,7 +34,7 @@ const foldingFadeInProgress=computed(()=>
   Math.max(0,foldingProgress.value-(foldingBorderIncrease+foldingHeightIncrease+foldingWidthIncrease))/foldingFadeIn
 )
 const foldingBorderWidth=computed(()=>
-  (foldingProgress.value<foldingBorderIncrease?eazing_function(foldingBorderIncreaseProgress.value)*10:(1-foldingWidthIncreaseProgress.value)*10)+'px'
+  (foldingProgress.value<foldingBorderIncrease?eazing_function(foldingBorderIncreaseProgress.value)*3:(1-foldingWidthIncreaseProgress.value)*3)+'px'
 )
 const foldingInner:ComputedRef<StyleValue>=computed(()=>({
   opacity: eazing_function(foldingFadeInProgress.value)*100+'%'
@@ -42,7 +46,7 @@ const foldingAnimations:ComputedRef<StyleValue>=computed(()=>({
   transform: "translate(-50%,-50%)",
   width: foldingWidthIncreaseProgress.value*600+'px',
   overflow: 'hidden',
-  border: '0px solid black',
+  border: '0px solid white',
   borderLeftWidth: foldingBorderWidth.value,
   borderRightWidth: foldingBorderWidth.value,
   height: foldingHeightIncreaseProgress.value*viewHeight.value*0.4+10+'px',
@@ -110,7 +114,7 @@ window.addEventListener('scroll',()=>{
         <span :style="fadeOut">ww</span>wulongcha<span :style="fadeOut">aa</span>
       </div>
     </div>
-    <div :style="foldingAnimations">
+    <div class="glass" :style="foldingAnimations">
       <div class="row-flex" :style="foldingInner">
         <div class="col-flex" style="width: 40%;">
           <div class="row-flex">
@@ -118,13 +122,13 @@ window.addEventListener('scroll',()=>{
             <span style="font-size: 60px;">欢迎</span>
           </div>
           <span>&ensp;</span>
-          <span>这里似乎本应该是个登录页</span>
-          <span>但好像没必要了￣へ￣</span>
+          <span>想整个登录页</span>
+          <span>但懒得做用户系统了￣へ￣</span>
         </div>
         <div class="col-line"/>
         <div class="col-flex">
-          <div class="button">
-            润
+          <div @click="handleClick" class="button">
+            一键登录
           </div>
         </div>
       </div>
@@ -156,8 +160,8 @@ window.addEventListener('scroll',()=>{
   line-height: 60px;
 }
 html,body,#app {
-  //background-color: gray;
-  //color: white;
+  background-color: rgb(64,70,75);
+  color: white;
   height: 100%;
   margin: 0;
   scrollbar-width:none;
@@ -185,7 +189,7 @@ html,body,#app {
 .col-line {
   width: 0px;
   box-sizing: border-box;
-  border: 2px black solid;
+  border: 2px white solid;
   border-radius: 2px;
   box-shadow: 0px 0px 20px #888888;
   height: 70%;
@@ -197,16 +201,24 @@ html,body,#app {
   box-shadow: 5px 5px 5px #888888;
 }
 .button {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: 150px;
+  height: 60px;
   border: 2px white solid;
-  line-height: 100px;
-  font-size: 50px;
+  line-height: 60px;
+  font-size: 30px;
   color: white;
-  background-color: lightgray;
+  background-color: rgb(51,51,51);
   box-shadow: 0px 0px 20px #888888;
   margin-right: 30px;
   user-select: none;
+}
+.glass {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255,255,255,0.6),
+    rgba(255,255,255,0.1)
+  );
+  backdrop-filter: blur(8px);
+  //boxshadow border-top border-left阴影、左上角照亮
 }
 </style>
