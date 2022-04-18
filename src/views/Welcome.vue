@@ -156,8 +156,7 @@ window.addEventListener('scroll',()=>{
 }
 
 .scroll-view {
-  background-color: rgb(64,70,75);
-  color: white;
+  color: rgb(64,70,75);
   height: 200%;
   word-break: initial;
   text-align: center;

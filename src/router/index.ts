@@ -23,7 +23,7 @@ const router=createRouter({
                 component: ()=>import(`../md/${title.join('/')}.md`).catch(()=>NotFound)
             })
             savedPost=title.concat()
-            return to.fullPath
+            return (title.length==1 && title[0]==='index')?'/post/':to.fullPath
         },
     }
 ]
