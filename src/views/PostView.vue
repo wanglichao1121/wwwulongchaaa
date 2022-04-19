@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, watch, ref } from "vue"
 import { useRoute } from "vue-router"
 const route=useRoute()
 </script>
@@ -14,6 +13,7 @@ const route=useRoute()
     width: 90%;
     margin: auto;
     padding-bottom: 20px;
+    padding-top: 1.2em;
 }
 .tail {
     border-bottom: 5px rgb(64,70,75) solid;

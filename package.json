@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@corgicoding/theme": "^1.0.7",
+    "animate.css": "^4.1.1",
     "markdown-it-prism": "^2.2.4",
     "sass": "^1.50.0",
     "vue": "^3.2.25",
