@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router"
+import { onBeforeRouteUpdate, RouteLocationNormalized, useRoute, useRouter } from "vue-router"
+import {updatePost} from '../router'
 const route=useRoute()
+const router=useRouter()
+onBeforeRouteUpdate(updatePost)
 </script>
 <template>
     <div class="post-body">
@@ -16,8 +19,8 @@ const route=useRoute()
     padding-top: 1.2em;
 }
 .tail {
-    border-bottom: 5px rgb(64,70,75) solid;
+    border-bottom: 2px rgb(64,70,75) solid;
     text-align: right;
-    font-size: 50px;
+    font-size: 30px;
 }
 </style>
