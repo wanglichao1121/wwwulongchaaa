@@ -13,6 +13,7 @@ export const updatePost=(to:RouteLocationNormalized)=>{
         return true
     router.addRoute('pathView',{
         path: '',
+        name: 'post',
         component: ()=>import(`../md/${title.join('/')}.md`).catch(()=>NotFound)
     })
     console.log('page reload')
