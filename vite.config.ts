@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Markdown from 'vite-plugin-md'
 import prism from 'markdown-it-prism'
+import tasklist from 'markdown-it-task-lists'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -10,7 +11,7 @@ export default defineConfig({
     }),
     Markdown({
       markdownItUses: [
-        prism
+        prism, tasklist
       ]
     })
   ]
