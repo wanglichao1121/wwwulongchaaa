@@ -95,7 +95,7 @@ li {
     user-select: none;
     &:not(:nth-child(1)):not(:nth-last-child(1)){
         cursor: pointer;
-        :hover::after{
+        &:hover::after{
             content: '←';
         }
     }
