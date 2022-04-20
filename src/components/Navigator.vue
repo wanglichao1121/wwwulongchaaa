@@ -9,7 +9,7 @@
       </ul>
       <div class="right">
           <div v-for="(v,i) in secondDir" :key="i" @click="handleJump(v.link)">
-              <span>{{v.name}}</span>
+              <span>{{titles[v.link]}}</span>
               <span class="tail-date">{{v.date}}</span>
           </div>
       </div>
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue"
 import { useRouter } from "vue-router"
-import { nav_list } from '../md/navList'
+import { nav_list,titles } from '../md/meta'
 const first_level=ref<number>(0)
 const router=useRouter()
 const secondDir=computed(()=>
@@ -29,7 +29,7 @@ const handleClick=(dirName:number)=>{
     first_level.value=dirName
 }
 const handleJump=(des:string)=>{
-    router.push(des)
+    router.push('/post/'+des)
 }
 </script>
 
