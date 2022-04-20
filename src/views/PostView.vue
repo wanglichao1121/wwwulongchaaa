@@ -5,28 +5,27 @@ import { onBeforeRouteUpdate, RouteLocationNormalized, useRoute, useRouter } fro
 const route=useRoute()
 const router=useRouter()
 
-let savedPost:string[]|undefined=undefined
+let savedPost:string|undefined=undefined
 onBeforeRouteUpdate((to)=>{
-    console.log('enter hook'+to.fullPath)
-    if(typeof to.params['postId']==='string' && to.params['postId']!=='')
+    if(typeof to.params['postId']!=='string')
         return false
-    const title=to.params['postId'] || ['index']
-    if(savedPost!==undefined && title.join('/')===savedPost.join('/'))
+    const title=to.params['postId'] || 'index'
+    if(savedPost!==undefined && title===savedPost)
         return true
     router.addRoute('pathView',{
         path: '',
         name: 'post',
-        component: ()=>import(`../md/${title.join('/')}.md`).catch(()=>{
+        component: ()=>import(`../md/${title}.md`).catch(()=>{
             router.replace('/post/NotFound')
         })
     })
     savedPost=title.concat()//深拷贝
-    return (title.length==1 && title[0]==='index')?'/post/':to.path
+    return title==='index'?'/post/':to.path
 })
 
 onMounted(()=>{
     if(savedPost===undefined)
-        router.replace(route.fullPath+'#temp')
+        router.replace(route.fullPath+'#'+Math.random())
         //触发一次update
 })
 

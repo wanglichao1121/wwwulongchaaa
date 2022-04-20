@@ -8,7 +8,7 @@ const router=createRouter({
         path: '/',
         component: Welcome
     },{
-        path: '/post/:postId*',
+        path: '/post/:postId?',
         name: 'pathView',
         component: PostView
     }],

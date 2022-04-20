@@ -22,4 +22,7 @@ html,body,#app {
 li.task-list-item {
   list-style:none;
 }
+pre {
+  overflow: scroll scroll;
+}
 </style>
