@@ -29,14 +29,31 @@ onMounted(()=>{
         router.replace(route.fullPath+'#temp')
         //触发一次update
 })
+
+const handleHome=()=>{
+    router.push('/post')
+}
+
+const handleTop=()=>{
+    router.push({
+        hash: '#top'
+    })
+}
+
 </script>
 <template>
     <div class="post-body">
         <router-view class="c-html-render"/>
-        <div class="tail">没mò了liǎo</div>
+        <div class="tail">
+            <div>
+                <span class="tail-front" @click="handleHome">首页</span>
+                <span class="tail-front" @click="handleTop">顶部</span>
+            </div>
+            <span>这是底线</span>
+        </div>
     </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .post-body{
     width: 90%;
     margin: auto;
@@ -45,7 +62,29 @@ onMounted(()=>{
 }
 .tail {
     border-bottom: 2px rgb(64,70,75) solid;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
     font-size: 30px;
+    div{
+        display: flex;
+        align-self: center;
+        .tail-front{
+            font-size: 20px;
+            align-self: center;
+            margin-left: 20px;
+            user-select: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color .6s;
+            transition: border-color .4s;
+            border: rgba(255,255,255,0) 1px solid;
+            
+            padding: 3px;
+            &:hover {
+                background-color: rgba(230,230,230,255);
+                border-color: rgba(180,180,180,255);
+            }
+        }
+    }
 }
 </style>

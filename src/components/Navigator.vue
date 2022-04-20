@@ -8,7 +8,10 @@
           </li>
       </ul>
       <div class="right">
-          <div v-for="(v,i) in secondDir" :key="i" @click="handleJump(v.link)">{{v.name}}</div>
+          <div v-for="(v,i) in secondDir" :key="i" @click="handleJump(v.link)">
+              <span>{{v.name}}</span>
+              <span class="tail-date">{{v.date}}</span>
+          </div>
       </div>
   </div>
 </template>
@@ -16,29 +19,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue"
 import { useRouter } from "vue-router"
+import { nav_list } from '../md/navList'
 const first_level=ref<number>(0)
 const router=useRouter()
-const nav_list=[
-    {
-        name: '📦关于博客',
-        secDir: [{
-            name:'关于欢迎页',
-            link:'/post/blogitself/welcomepage'
-        },{
-            name:'关于post',
-            link:'/post/blogitself/post'
-        }]
-    },{
-        name: '💻安全相关',
-        secDir: [{
-            name:'一些pwn的题',
-            link:'/post/security/pwn'
-        }]
-    },{
-        name: '🎮游戏相关',
-        secDir: []
-    }
-]
 const secondDir=computed(()=>
     nav_list[first_level.value].secDir
 )
@@ -68,8 +51,31 @@ $left-occupy: 35%;
     padding: 40px;
     line-height: 50px;
     div {
-        text-decoration: underline;
-        color: rgb(100, 167, 189);
+        user-select: none;
+        cursor: pointer;
+        border: 1px solid gray;
+        border-radius: 10px;
+        padding-left: 1em;
+        padding-right: 1em;
+        margin-bottom: 10px;
+        background: linear-gradient(
+            to right,
+            lightgray,
+            white,
+            white,
+        );
+        background-size: 200%;
+        transition: background-position .4s;
+        background-position: 80%;
+        &:hover{
+            background-position: 0%;
+        }
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        span.tail-date{
+            font-size: 0.8em;
+        }
     }
 }
 ul {
@@ -87,8 +93,11 @@ li {
     padding-left: 2em;
     padding-right: 2em;
     user-select: none;
-    &:not(:nth-child(1)):not(:nth-last-child(1)):hover::after{
-        content: '←'
+    &:not(:nth-child(1)):not(:nth-last-child(1)){
+        cursor: pointer;
+        :hover::after{
+            content: '←';
+        }
     }
     &:nth-child(1){
         text-align: center;

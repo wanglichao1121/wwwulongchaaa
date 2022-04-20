@@ -8,6 +8,7 @@
 html,body,#app {
   height: 100%;
   margin: 0;
+  scroll-behavior: smooth;
   scrollbar-width:none;
   ::-webkit-scrollbar {
     display: none; /* Chrome Safari */
