@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import { onBeforeRouteUpdate, RouteLocationNormalized, useRoute, useRouter } from "vue-router"
-import NotFound from '../views/NotFound.vue'
 
 const route=useRoute()
 const router=useRouter()
 
 let savedPost:string[]|undefined=undefined
 onBeforeRouteUpdate((to)=>{
-    console.log('enter hook')
+    console.log('enter hook'+to.fullPath)
     if(typeof to.params['postId']==='string' && to.params['postId']!=='')
         return false
     const title=to.params['postId'] || ['index']
@@ -17,9 +16,10 @@ onBeforeRouteUpdate((to)=>{
     router.addRoute('pathView',{
         path: '',
         name: 'post',
-        component: ()=>import(`../md/${title.join('/')}.md`).catch(()=>NotFound)
+        component: ()=>import(`../md/${title.join('/')}.md`).catch(()=>{
+            router.replace('/post/NotFound')
+        })
     })
-    console.log('page reload')
     savedPost=title.concat()//深拷贝
     return (title.length==1 && title[0]==='index')?'/post/':to.path
 })

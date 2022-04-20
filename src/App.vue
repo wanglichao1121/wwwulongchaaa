@@ -18,4 +18,8 @@ html,body,#app {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+//task-list:
+li.task-list-item {
+  list-style:none;
+}
 </style>
