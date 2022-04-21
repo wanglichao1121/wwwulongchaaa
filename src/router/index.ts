@@ -19,9 +19,12 @@ const router=createRouter({
     }
 })
 router.beforeEach((to)=>{
+    if(to.query['goto'])
+        return to.query['goto'] as string;
     if(to.name?.toString()==='pathView' || to.name?.toString()==='post')
         document.title=titles[to.params['postId'] as string]+' | wwwulongcha';
     else
         document.title=to.name?.toString()+' | wwwulongcha';
+    return true;
 })
 export default router
