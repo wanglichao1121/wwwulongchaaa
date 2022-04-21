@@ -19,8 +19,6 @@ const router=createRouter({
     }
 })
 router.beforeEach((to)=>{
-    console.log(to.params)
-    console.log(to.name)
     if(to.name?.toString()==='pathView' || to.name?.toString()==='post')
         document.title=titles[to.params['postId'] as string]+' | wwwulongcha';
     else

@@ -1,33 +1,21 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { onBeforeRouteUpdate, RouteLocationNormalized, useRoute, useRouter } from "vue-router"
+import { onMounted,ref } from "vue"
+import { onBeforeRouteUpdate, RouteLocationNormalized , useRoute, useRouter } from "vue-router"
+import Loading from '../components/Loading.vue'
+import NotFound from '../components/NotFound.vue'
 
 const route=useRoute()
 const router=useRouter()
 
-let savedPost:string|undefined=undefined
-onBeforeRouteUpdate((to)=>{
-    if(typeof to.params['postId']!=='string')
-        return false
-    const title=to.params['postId'] || 'index'
-    if(savedPost!==undefined && title===savedPost)
-        return true
-    router.addRoute('pathView',{
-        path: '',
-        name: 'post',
-        component: ()=>import(`../md/${title}.md`).catch(()=>{
-            router.replace('/post/NotFound')
-        })
-    })
-    savedPost=title.concat()//深拷贝
-    return title==='index'?'/post/':to.path
-})
-
-onMounted(()=>{
-    if(savedPost===undefined)
-        router.replace(route.fullPath+'#'+Math.random())
-        //触发一次update
-})
+const postContent=ref(Loading)
+const loadPost=async(target: RouteLocationNormalized)=>{
+    postContent.value=Loading
+    postContent.value=await import(`../md/${target.params['postId'] as string || 'index'}.md`)
+        .then(({default:result})=>result)
+        .catch(()=>NotFound)
+}
+onMounted(()=>loadPost(route))
+onBeforeRouteUpdate((to)=>loadPost(to))
 
 const handleHome=()=>{
     router.push('/post')
@@ -42,7 +30,7 @@ const handleTop=()=>{
 </script>
 <template>
     <div class="post-body">
-        <router-view class="c-html-render"/>
+        <Component :is="postContent" class="c-html-render"/>
         <div class="tail">
             <div>
                 <span class="tail-front" @click="handleHome">首页</span>
