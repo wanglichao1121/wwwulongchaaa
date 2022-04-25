@@ -1,0 +1,1 @@
+import{o as e,c as s,a as t}from"./index.df343528.js";const n={class:"markdown-body"},c=t("h1",null,"pwn",-1),a=t("p",null,"\u5148\u5360\u5751\u653E\u4E00\u624B404\uFF0C",-1),r=[c,a],m={setup(_,{expose:o}){return o({frontmatter:{}}),(l,p)=>(e(),s("div",n,r))}};export{m as default};

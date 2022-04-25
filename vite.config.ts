@@ -6,8 +6,9 @@ import tasklist from 'markdown-it-task-lists'
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    outDir: 'docs'
+    outDir: 'docs',
   },
+  base: '/wwwulongchaaa/',
   plugins: [
     vue({
       include: [/\.vue$/,/\.md$/]
