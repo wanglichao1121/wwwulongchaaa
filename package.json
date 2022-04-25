@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "deploy": "vite build --base=/wwwulongchaaa/ && cd dist && copy index.html 404.html && git add . && git commit -m 'deploy' && git push",
+    "build": "vite build && cd docs && copy index.html 404.html",
     "preview": "vite preview"
   },
   "dependencies": {
